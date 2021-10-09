@@ -3,8 +3,12 @@ package core;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 import lombok.NoArgsConstructor;
-import util.Message;
+import lombok.extern.slf4j.Slf4j;
+import util.message.Message;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.io.StringReader;
 
 /**
@@ -16,6 +20,7 @@ import java.io.StringReader;
  * stream.
  */
 @NoArgsConstructor
+@Slf4j
 public class Marshaller {
     private static final Gson gson = new Gson();
 
@@ -37,6 +42,24 @@ public class Marshaller {
         JsonReader reader = new JsonReader(new StringReader(json));
         reader.setLenient(true);
         return gson.fromJson(reader, Message.class);
+    }
+
+    /**
+     * Convert input stream received from sockets in a Message object
+     * @param data the data
+     * @return A Message object
+     */
+    public Message unmarshalFromSocket(InputStream data){
+        try {
+            var in = new ObjectInputStream(data);
+            return (Message) in.readObject();
+        } catch (IOException e) {
+            log.error("Error to read received data");
+            return null;
+        } catch (ClassNotFoundException e) {
+            log.error("Error for convert received data to Message object");
+            return null;
+        }
     }
 
 }
