@@ -6,10 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.StringReader;
+import java.io.*;
 
 /**
  * A MARSHALLER converts remote invocations into byte streams. The
@@ -60,6 +57,20 @@ public class Marshaller {
             log.error("Error for convert received data to Message object");
             return null;
         }
+    }
+
+    public byte[] marshalToSocket(Message message){
+        try{
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(message);
+            oos.flush();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            log.error("Error to serialize message object - returning null message...");
+            return null;
+        }
+
     }
 
 }
