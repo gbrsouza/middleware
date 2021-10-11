@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 
 /**
@@ -28,17 +31,32 @@ public class ClientRequestHandler {
      * This class implements a Thread-per-connection model to Client Request Handler.
      * For each connection received by requestor, a new thread is created to instantiate
      * an request to Sever Request Handler
+     * @throws ExecutionException 
+     * @throws InterruptedException 
      */
-    public void requestRemoteObject(Message message, String resource) {
-        var request = new Thread(new ClientHandler(message, resource));
+    public Message requestRemoteObject(Message message, String resource) throws InterruptedException, ExecutionException {
+    	
+    	FutureTask<Message> future;
+	   	Callable callable = new ClientHandler(message,resource);
+	   
+	      // Create the FutureTask with Callable
+	    future = new FutureTask(callable);
+	  
+	      // As it implements Runnable, create Thread
+	      // with FutureTask
+	    Thread t = new Thread(future);
+	    t.start();
+	    
+	    return future.get();
     }
 
     @AllArgsConstructor
-    private static class ClientHandler implements Runnable {
+    private static class ClientHandler implements Callable<Message> {
         private final String host = "localhost";
         private Socket connection = null;
         private final Marshaller marshaller = new Marshaller();
         private final Message message;
+        private Message respmessage;        
         private final String resource;
 
         public  ClientHandler(Message message, String resource){
@@ -48,11 +66,12 @@ public class ClientRequestHandler {
 
 
         @Override
-        public void run() {
+        public Message call() {
             log.info("\n ClientHandler started..." );
             handleRequest();
             // TO-DO resolve a specific handle to each request
             log.info("\n ClientHandler terminated");
+            return getResponseMessage();
         }
 
         private void handleRequest(){
@@ -76,11 +95,16 @@ public class ClientRequestHandler {
          */
         private Message getResponse(Socket connection) {
             try{
-                return marshaller.unmarshalFromSocket(connection.getInputStream());
+                respmessage = marshaller.unmarshalFromSocket(connection.getInputStream());
+                return respmessage;
             } catch (IOException e) {
                 log.error("Error to receive data from server - returning a null message");
                 return null;
             }
+        }
+        
+        private Message getResponseMessage() {
+        	return respmessage;
         }
     }
 
