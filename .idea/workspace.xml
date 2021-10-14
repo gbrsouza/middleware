@@ -5,29 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/ApplicationClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/application/ApplicationServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/AcceptEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/Client.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/EventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/Reactor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/ReactorManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/ReadEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/WriteEventHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/MessageBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/MessageHeader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/RequestBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/RequestHeader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/ResponseBody.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/util/message/ResponseHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ClientProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ClientRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/core/Requestor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Requestor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/Message.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

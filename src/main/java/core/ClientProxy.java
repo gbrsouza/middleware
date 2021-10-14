@@ -1,34 +1,21 @@
 package core;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
+@AllArgsConstructor
+@Getter
+@Setter
 public class ClientProxy implements Serializable {
-
     private int objectID;
-
-    public ClientProxy(int objectid) {
-        this.objectID = objectid;
-    }
-
-    public void setobjectID(int objectID) {
-        this.objectID = objectID;
-    }
-
-    public int getobjectID() {
-        return objectID;
-    }
-
-    public String getMethodName(Object obj) {
-        return obj.getClass().getEnclosingMethod().getName();
-    }        
-
     
     public Object operate(ArrayList<Object> parameters, String methodName) {
         Requestor requestor = new Requestor();
-
-        return requestor.invoke(this.getobjectID(),methodName, parameters);
-
+        return requestor.invoke(this.getObjectID(),methodName, parameters);
     }
 
     

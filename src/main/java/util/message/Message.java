@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class Message implements Serializable {
     private MessageHeader header;
     private MessageBody body;
-    
+
 	public Message NewRequestMessage(boolean b, int i, String method, ArrayList<Object> params) {
 		 RequestHeader requestHeader = new RequestHeader(b, i, method);
 	     RequestBody requestBody = new RequestBody(params);
@@ -22,21 +22,4 @@ public class Message implements Serializable {
 
 	     return new Message(messageHeader, messageBody);
 	}
-	
-	
-	public MessageHeader getHeader() {
-        return header;
-    }
-
-    public void setHeader(MessageHeader header) {
-        this.header = header;
-    }
-
-    public MessageBody getBody() {
-        return body;
-    }
-
-    public void setBody(MessageBody body) {
-        this.body = body;
-    }
 }
