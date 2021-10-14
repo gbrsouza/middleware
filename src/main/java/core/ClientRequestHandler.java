@@ -4,12 +4,13 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 
 /**
@@ -28,60 +29,81 @@ public class ClientRequestHandler {
      * This class implements a Thread-per-connection model to Client Request Handler.
      * For each connection received by requestor, a new thread is created to instantiate
      * an request to Sever Request Handler
+     * @param message The message with all resources required from Requestor
+     * @return A Message with the response from Sever Request Handler
      */
-    public void requestRemoteObject(Message message, String resource) {
-        var request = new Thread(new ClientHandler(message, resource));
+    public Message requestRemoteObject(Message message){
+    	
+    	FutureTask<Message> future;
+	   	Callable<Message> callable = new ClientHandler(message);
+
+        // Create the FutureTask with Callable
+	    future = new FutureTask(callable);
+	  
+	    // As it implements Runnable, create Thread
+	    // with FutureTask
+	    Thread t = new Thread(future);
+	    t.start();
+
+        try {
+            return future.get();
+        } catch (InterruptedException e) {
+            log.error("Error to receive data from server");
+            return new Message();
+        } catch (ExecutionException e) {
+            log.error("Error to execute a receive data from server");
+            return new Message();
+        }
     }
 
+    /**
+     * This class implements a callable and it is response to execute the process
+     * to establish a connection with the server, receive responses and handler
+     * exceptions
+     */
     @AllArgsConstructor
-    private static class ClientHandler implements Runnable {
-        private final String host = "localhost";
+    private static class ClientHandler implements Callable<Message> {
         private Socket connection = null;
         private final Marshaller marshaller = new Marshaller();
         private final Message message;
-        private final String resource;
 
-        public  ClientHandler(Message message, String resource){
+        public  ClientHandler(Message message){
             this.message = message;
-            this.resource = resource;
         }
 
 
         @Override
-        public void run() {
+        public Message call() {
             log.info("\n ClientHandler started..." );
-            handleRequest();
+            Message resp = handleRequest();
             // TO-DO resolve a specific handle to each request
             log.info("\n ClientHandler terminated");
+            return resp;
         }
 
-        private void handleRequest(){
+        private Message handleRequest(){
+            String host = "localhost";
             try{
                 connection = new Socket(host, SERVER_PORT);
+
+                // sending message to server
                 OutputStream out = connection.getOutputStream();
                 out.write(marshaller.marshalToSocket(message));
-                log.info("Response from server: " + getResponse(connection));
+
+                // receiving data from server
+                Message resp = marshaller.unmarshalFromSocket(connection.getInputStream());
+                log.info("Response from server: " + resp);
                 connection.close();
+                return resp;
             } catch (UnknownHostException e) {
                 log.error("Server undefined on host " + host + " and port " + SERVER_PORT);
+                return new Message();
             } catch (IOException e) {
                 log.error("Error in starting connection on host " + host + " and port " + SERVER_PORT);
+                return new Message();
             }
         }
 
-        /**
-         * Receive a response from server
-         * @param connection The socket connection with the server
-         * @return A Message object send by server
-         */
-        private Message getResponse(Socket connection) {
-            try{
-                return marshaller.unmarshalFromSocket(connection.getInputStream());
-            } catch (IOException e) {
-                log.error("Error to receive data from server - returning a null message");
-                return null;
-            }
-        }
     }
 
 }
