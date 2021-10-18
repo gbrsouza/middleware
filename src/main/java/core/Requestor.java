@@ -30,7 +30,7 @@ public class Requestor {
     public Message invoke(int objId, String method, ArrayList<Object> params) {
 
         ClientRequestHandler handler = new ClientRequestHandler();
-        Message requestMessage = new Message().NewRequestMessage(
+        Message requestMessage = Message.newRequestMessage(
         		true,
                 objId,
                 method,

@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ClientProxy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ClientRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Requestor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Requestor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/Message.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +27,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="ProjectId" id="1z6Aufv0WsAXrTZyFBq34UL8kgB" />
   <component name="ProjectLevelVcsManager">

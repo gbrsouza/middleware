@@ -7,6 +7,8 @@ import util.message.Message;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 
 /**
  * the SERVER REQUEST HANDLER receive messages from the network,
@@ -31,7 +33,17 @@ public class ServerRequestHandler {
                 log.info("Waiting for client requests...");
                 Socket remote = serverSocket.accept();
                 log.info("Connection made");
-                new Thread(new ServerHandler(remote)).start();
+
+                FutureTask<Message> future;
+                Callable<Message> callable = new ServerHandler(remote);
+
+                // Create the FutureTask with Callable
+                future = new FutureTask(callable);
+
+                // As it implements Runnable, create Thread
+                // with FutureTask
+                Thread t = new Thread(future);
+                t.start();
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
@@ -44,31 +56,34 @@ public class ServerRequestHandler {
      * an appropriate invoker to access the resource
      */
     @AllArgsConstructor
-    private static class ServerHandler implements Runnable {
+    private static class ServerHandler implements Callable<Message> {
         private final Socket socket;
         private final Marshaller marshaller = new Marshaller();
 
         @Override
-        public void run() {
+        public Message call() throws Exception {
             log.info("\n ServerHandler started for" + this.socket);
-            handleRequest(this.socket);
+            var msg =  handleRequest(this.socket);
             log.info("\n ServerHandler terminated for" + this.socket + "\n");
+            return msg;
         }
 
         /**
          * Recover and executes the commands received from client
          * @param socket the data received from client
          */
-        private void handleRequest(Socket socket){
+        private Message handleRequest(Socket socket){
             try {
                 Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
-                if (msg.getHeader().getMessageType() == 0){
-                    // TO-DO create an invoker for each message type
-                }
+                var invoker = new Invoker();
+                return invoker.invokeRemoteObject(msg);
             } catch (IOException e) {
                 log.error("Error in recover data from received package");
+                return new Message();
             }
         }
+
+
     }
 
 
