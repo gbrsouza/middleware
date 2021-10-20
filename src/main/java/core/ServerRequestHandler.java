@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 
 /**
@@ -44,9 +45,16 @@ public class ServerRequestHandler {
                 // with FutureTask
                 Thread t = new Thread(future);
                 t.start();
+                future.get();
+
+                // TO-DO implements response by server
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
