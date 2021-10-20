@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -21,6 +22,7 @@ import java.util.concurrent.FutureTask;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
+    private final Marshaller marshaller = new Marshaller();
 
     /**
      * Main function from Server Request Handler, wait for connections
@@ -45,9 +47,11 @@ public class ServerRequestHandler {
                 // with FutureTask
                 Thread t = new Thread(future);
                 t.start();
-                future.get();
-
-                // TO-DO implements response by server
+                
+                // collect message e response to client request handler
+                Message response = future.get();
+                DataOutputStream out = new DataOutputStream(remote.getOutputStream());
+                out.write(marshaller.marshalToSocket(response));
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
@@ -66,7 +70,7 @@ public class ServerRequestHandler {
     @AllArgsConstructor
     private static class ServerHandler implements Callable<Message> {
         private final Socket socket;
-        private final Marshaller marshaller = new Marshaller();
+
 
         @Override
         public Message call() throws Exception {
