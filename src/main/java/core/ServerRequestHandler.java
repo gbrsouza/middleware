@@ -22,7 +22,7 @@ import java.util.concurrent.FutureTask;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
-    private final Marshaller marshaller = new Marshaller();
+    private final static Marshaller marshaller = new Marshaller();
 
     /**
      * Main function from Server Request Handler, wait for connections

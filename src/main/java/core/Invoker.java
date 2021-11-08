@@ -19,8 +19,12 @@ public class Invoker {
 
         public Message invokeRemoteObject (Message msg) {
             if (msg.getHeader().getMessageType() == 0){
-                //TO-DO implements action from invoker
-                return new Message(true, 1, "response", new ArrayList<>());
+                        	
+            	if(RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation())) {
+            		return new Message(true, 1, "response", new ArrayList<>());
+            	}else {
+            		return new Message(true, 1, "error", new ArrayList<>());
+            	}
             }else {
                 return new Message(true, 1, "error", new ArrayList<>());
             }
