@@ -17,8 +17,12 @@ import java.util.ArrayList;
  */
 public class Invoker {
 
+
         public Message invokeRemoteObject (Message msg) {
-            if (msg.getHeader().getMessageType() == 0){
+            var content = msg.getBody().getRequestBody().getParameters();
+            var operation = (String) content.get(2);
+
+            if (operation.equals("plus")){
                 //TO-DO implements action from invoker
                 return new Message(true, 1, "response", new ArrayList<>());
             }else {

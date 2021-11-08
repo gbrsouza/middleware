@@ -8,9 +8,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 /**
  * the SERVER REQUEST HANDLER receive messages from the network,
@@ -22,7 +19,6 @@ import java.util.concurrent.FutureTask;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
-    private final Marshaller marshaller = new Marshaller();
 
     /**
      * Main function from Server Request Handler, wait for connections
@@ -37,28 +33,11 @@ public class ServerRequestHandler {
                 Socket remote = serverSocket.accept();
                 log.info("Connection made");
 
-                FutureTask<Message> future;
-                Callable<Message> callable = new ServerHandler(remote);
-
-                // Create the FutureTask with Callable
-                future = new FutureTask(callable);
-
                 // As it implements Runnable, create Thread
-                // with FutureTask
-                Thread t = new Thread(future);
-                t.start();
-                
-                // collect message e response to client request handler
-                Message response = future.get();
-                DataOutputStream out = new DataOutputStream(remote.getOutputStream());
-                out.write(marshaller.marshalToSocket(response));
+                new Thread(new ServerHandler(remote)).start();
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 
@@ -68,16 +47,24 @@ public class ServerRequestHandler {
      * an appropriate invoker to access the resource
      */
     @AllArgsConstructor
-    private static class ServerHandler implements Callable<Message> {
+    private static class ServerHandler implements Runnable {
         private final Socket socket;
-
+        private final Marshaller marshaller = new Marshaller();
 
         @Override
-        public Message call() throws Exception {
+        public void run() {
             log.info("\n ServerHandler started for" + this.socket);
-            var msg =  handleRequest(this.socket);
+            var response =  handleRequest(this.socket);
             log.info("\n ServerHandler terminated for" + this.socket + "\n");
-            return msg;
+
+            try{
+                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+                out.write(marshaller.marshalToSocket(response));
+                socket.close();
+            } catch (Exception e){
+                log.error("Error to response client");
+            }
+
         }
 
         /**
@@ -94,7 +81,6 @@ public class ServerRequestHandler {
                 return new Message();
             }
         }
-
 
     }
 
