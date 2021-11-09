@@ -24,16 +24,16 @@ public class AddMethods {
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Get.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodGet(method.getName(), method);
+                RemoteObject.addMethodGet(clazz.getName() + "-get-" + method.getName(), method);
             }else if (method.isAnnotationPresent(Post.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodPost(method.getName(), method);            	
+                RemoteObject.addMethodPost(clazz.getName() + "-post-" + method.getName(), method);            	
             }else if (method.isAnnotationPresent(Put.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodPut(method.getName(), method);            	
+                RemoteObject.addMethodPut(clazz.getName() +"-put-" + method.getName(), method);           	
             }else if (method.isAnnotationPresent(Delete.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodDelete(method.getName(), method);            }            
+                RemoteObject.addMethodDelete(clazz.getName() + "-delete-" + method.getName(), method);            }            
         }
         return "sucess add methods";
     }

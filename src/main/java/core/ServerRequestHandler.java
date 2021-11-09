@@ -6,6 +6,7 @@ import util.message.Message;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.Callable;
@@ -83,8 +84,14 @@ public class ServerRequestHandler {
         /**
          * Recover and executes the commands received from client
          * @param socket the data received from client
+         * @throws SecurityException 
+         * @throws NoSuchMethodException 
+         * @throws InvocationTargetException 
+         * @throws IllegalArgumentException 
+         * @throws IllegalAccessException 
+         * @throws InstantiationException 
          */
-        private Message handleRequest(Socket socket){
+        private Message handleRequest(Socket socket) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
             try {
                 Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
                 var invoker = new Invoker();

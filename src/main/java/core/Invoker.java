@@ -2,6 +2,7 @@ package core;
 
 import util.message.Message;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
@@ -17,14 +18,14 @@ import java.util.ArrayList;
  */
 public class Invoker {
 
-        public Message invokeRemoteObject (Message msg) {
+        public Message invokeRemoteObject (Message msg) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
             if (msg.getHeader().getMessageType() == 0){
+            	
+            	Message respMsg = RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation(),
+            			msg.getBody().getRequestBody().getParameters());
+            	
+            	return respMsg;
                         	
-            	if(RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation())) {
-            		return new Message(true, 1, "response", new ArrayList<>());
-            	}else {
-            		return new Message(true, 1, "error", new ArrayList<>());
-            	}
             }else {
                 return new Message(true, 1, "error", new ArrayList<>());
             }
