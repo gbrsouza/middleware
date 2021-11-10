@@ -5,22 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/bin/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bin/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/RemoteObject.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/annotations/AddMethods.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/annotations/Delete.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/annotations/Get.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/annotations/Post.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/core/annotations/Put.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/test/java/Testhashmap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Calculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Invoker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +56,7 @@
       <recent name="util.message" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.Testhashmap.testHash">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.clientRequestHandler.Client" />
       <module name="middleware" />
@@ -111,8 +96,25 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Testhashmap.testHash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="middleware" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.java.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.java" />
+      <option name="MAIN_CLASS_NAME" value="test.java.Testhashmap" />
+      <option name="METHOD_NAME" value="testHash" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.Testhashmap.testHash" />
         <item itemvalue="Application.Main" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ReactorManager" />
