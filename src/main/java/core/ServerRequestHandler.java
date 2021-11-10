@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -18,7 +19,6 @@ import java.net.Socket;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
-
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
@@ -53,16 +53,18 @@ public class ServerRequestHandler {
         @Override
         public void run() {
             log.info("\n ServerHandler started for" + this.socket);
-            var response =  handleRequest(this.socket);
-            log.info("\n ServerHandler terminated for" + this.socket + "\n");
-
-            try{
+			try {
+                var response = handleRequest(this.socket);
+                //TO-DO change this return to a JSON file
                 DataOutputStream out = new DataOutputStream(socket.getOutputStream());
                 out.write(marshaller.marshalToSocket(response));
                 socket.close();
-            } catch (Exception e){
-                log.error("Error to response client");
-            }
+
+            } catch (Exception e1) {
+				log.error("Error to receive data from handle requester");
+			}
+
+            log.info("\n ServerHandler terminated for" + this.socket + "\n");
 
         }
 
@@ -75,7 +77,7 @@ public class ServerRequestHandler {
                 Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
                 var invoker = new Invoker();
                 return invoker.invokeRemoteObject(msg);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 log.error("Error in recover data from received package");
                 return new Message();
             }
