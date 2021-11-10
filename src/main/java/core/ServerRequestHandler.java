@@ -57,7 +57,12 @@ public class ServerRequestHandler {
             log.info("\n ServerHandler started for" + this.socket);
             Message response = null;
 			try {
-				response = handleRequest(this.socket);
+				try {
+					response = handleRequest(this.socket);
+				} catch (ClassNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} catch (InstantiationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -98,8 +103,9 @@ public class ServerRequestHandler {
          * @throws IllegalArgumentException 
          * @throws IllegalAccessException 
          * @throws InstantiationException 
+         * @throws ClassNotFoundException 
          */
-        private Message handleRequest(Socket socket) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
+        private Message handleRequest(Socket socket) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException{
             try {
                 Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
                 var invoker = new Invoker();

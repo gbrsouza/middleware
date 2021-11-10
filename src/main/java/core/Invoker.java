@@ -24,7 +24,7 @@ public class Invoker {
             	Message respMsg = RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation(),
             			msg.getBody().getRequestBody().getParameters());
             	
-            	System.out.print(respMsg.getBody().getRequestHeader().getOperation());
+            	System.out.println(respMsg.getBody().getRequestHeader().getOperation());
             	
             	return respMsg;
                         	

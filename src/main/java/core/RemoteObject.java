@@ -68,12 +68,13 @@ public class RemoteObject {
 			}
 			 
 		}else if(method.toLowerCase().contains("post") ) {
-			if(methodsGet.containsKey(method)){
-				Method runMethod = methodsGet.get(method);
+			if(methodsPost.containsKey(method)){
+				Method runMethod = methodsPost.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
-					runMethod.invoke(instance, params.get(0), params.get(1));
+					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
+					System.out.println(obj);
 					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
@@ -89,12 +90,13 @@ public class RemoteObject {
 				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
 			}
 		}else if(method.toLowerCase().contains("put") ) {
-			if(methodsGet.containsKey(method)){
-				Method runMethod = methodsGet.get(method);
+			if(methodsPut.containsKey(method)){
+				Method runMethod = methodsPut.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
-					runMethod.invoke(instance, params.get(0), params.get(1));
+					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
+				    System.out.println(obj);
 					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
@@ -110,12 +112,13 @@ public class RemoteObject {
 				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
 			}
 		}else if(method.toLowerCase().contains("delete") ) {
-			if(methodsGet.containsKey(method)){
-				Method runMethod = methodsGet.get(method);
+			if(methodsDelete.containsKey(method)){
+				Method runMethod = methodsDelete.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
-					runMethod.invoke(instance, params.get(0), params.get(1));
+					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
+				    System.out.println(obj);
 					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
 				} catch (IllegalAccessException e) {
 					// TODO Auto-generated catch block
