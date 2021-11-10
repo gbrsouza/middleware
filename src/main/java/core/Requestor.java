@@ -29,18 +29,18 @@ public class Requestor {
 	 */
     public Message invoke(int objId, String method, ArrayList<Object> params) {
 
-        ClientRequestHandler handler = new ClientRequestHandler();
-        Message requestMessage = new Message().NewRequestMessage(
-        		true,
+        //ClientRequestHandler handler = new ClientRequestHandler();
+        /*Message requestMessage = Message.newRequestMessage(
+       # 		true,
                 objId,
                 method,
                 params
-        );
+        );*/
 
-        Message response;
+        //Message response;
 
-		response = handler.requestRemoteObject(requestMessage);
-		return response;
+		//response = handler.requestRemoteObject(requestMessage);
+		return null;
     }
 
 }

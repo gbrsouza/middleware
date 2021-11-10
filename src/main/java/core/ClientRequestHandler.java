@@ -71,7 +71,6 @@ public class ClientRequestHandler {
             this.message = message;
         }
 
-
         @Override
         public Message call() {
             log.info("\n ClientHandler started..." );
