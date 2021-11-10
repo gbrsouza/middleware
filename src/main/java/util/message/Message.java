@@ -20,4 +20,9 @@ public class Message implements Serializable {
 		this.header = new MessageHeader(1, true, 0, 0);
 		this.body = new MessageBody(requestHeader, requestBody, null, null);
 	}
+
+	public static Message newRequestMessage(boolean b, int objId, String method, ArrayList<Object> params) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

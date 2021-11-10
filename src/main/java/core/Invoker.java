@@ -2,6 +2,7 @@ package core;
 
 import util.message.Message;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 /**
@@ -17,14 +18,16 @@ import java.util.ArrayList;
  */
 public class Invoker {
 
-
-        public Message invokeRemoteObject (Message msg) {
-            var content = msg.getBody().getRequestBody().getParameters();
-            var operation = (String) content.get(2);
-
-            if (operation.equals("plus")){
-                //TO-DO implements action from invoker
-                return new Message(true, 1, "response", new ArrayList<>());
+        public Message invokeRemoteObject (Message msg) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+            if (msg.getHeader().getMessageType() == 0){
+            	
+            	Message respMsg = RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation(),
+            			msg.getBody().getRequestBody().getParameters());
+            	
+            	System.out.print(respMsg.getBody().getRequestHeader().getOperation());
+            	
+            	return respMsg;
+                        	
             }else {
                 return new Message(true, 1, "error", new ArrayList<>());
             }

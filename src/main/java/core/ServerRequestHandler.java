@@ -6,6 +6,7 @@ import util.message.Message;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -19,7 +20,7 @@ import java.net.Socket;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
-
+    private final static Marshaller marshaller = new Marshaller();
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
@@ -54,7 +55,28 @@ public class ServerRequestHandler {
         @Override
         public void run() {
             log.info("\n ServerHandler started for" + this.socket);
-            var response =  handleRequest(this.socket);
+            Message response = null;
+			try {
+				response = handleRequest(this.socket);
+			} catch (InstantiationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InvocationTargetException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (NoSuchMethodException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SecurityException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
             log.info("\n ServerHandler terminated for" + this.socket + "\n");
 
             try{
@@ -70,8 +92,14 @@ public class ServerRequestHandler {
         /**
          * Recover and executes the commands received from client
          * @param socket the data received from client
+         * @throws SecurityException 
+         * @throws NoSuchMethodException 
+         * @throws InvocationTargetException 
+         * @throws IllegalArgumentException 
+         * @throws IllegalAccessException 
+         * @throws InstantiationException 
          */
-        private Message handleRequest(Socket socket){
+        private Message handleRequest(Socket socket) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
             try {
                 Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
                 var invoker = new Invoker();
