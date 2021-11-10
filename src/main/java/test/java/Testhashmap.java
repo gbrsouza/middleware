@@ -24,16 +24,16 @@ class Testhashmap {
 	        ArrayList<Object> params = new ArrayList<>();
 	        params.add(3);
 	        params.add(3);
-	        Message msg = new Message(true, 0, "core.Calculator-get-add", params);
+	        Message msg = new Message(true, 0, "get-/add", params);
 	        inv.invokeRemoteObject(msg);
 	        
-	        msg = new Message(true, 0, "core.Calculator-post-sub", params);
+	        msg = new Message(true, 0, "post-/sub", params);
 	        inv.invokeRemoteObject(msg);
 	        
-	        msg = new Message(true, 0, "core.Calculator-put-mul", params);
+	        msg = new Message(true, 0, "put-/mul", params);
 	        inv.invokeRemoteObject(msg);
 	        
-	        msg = new Message(true, 0, "core.Calculator-delete-div", params);
+	        msg = new Message(true, 0, "delete-/div", params);
 	        inv.invokeRemoteObject(msg);
 	        
 	        assertEquals("sucess add methods", jsonString);
