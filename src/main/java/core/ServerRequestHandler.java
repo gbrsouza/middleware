@@ -18,11 +18,28 @@ import java.net.Socket;
  */
 @Slf4j
 public class ServerRequestHandler {
-    private static final int SERVER_PORT = 7080;
+    private static int SERVER_PORT = 7080;
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
      */
+    
+    /**
+     * Default constructor, uses port setting in the SERVER_PORT
+     */
+    
+    public ServerRequestHandler() {
+		// TODO Auto-generated constructor stub
+	}
+    
+    /**
+     * Default constructor, uses port setting in the SERVER_PORT
+     */
+    
+    public ServerRequestHandler(int port) {
+    	SERVER_PORT = port;
+	}
+    
     public void run() {
         try {
             log.info("Server Request Handler starting on port " + SERVER_PORT);
