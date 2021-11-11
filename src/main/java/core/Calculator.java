@@ -4,9 +4,11 @@ import core.annotations.Delete;
 import core.annotations.Get;
 import core.annotations.Post;
 import core.annotations.Put;
+import core.annotations.RequestMap;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+@RequestMap(router = "/calc")
 public class Calculator {
 	
 	

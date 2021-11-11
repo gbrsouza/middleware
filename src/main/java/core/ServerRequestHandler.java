@@ -1,6 +1,7 @@
 package core;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
@@ -17,12 +18,15 @@ import java.net.Socket;
  * and threads.
  */
 @Slf4j
+@NoArgsConstructor
+@AllArgsConstructor
 public class ServerRequestHandler {
-    private static final int SERVER_PORT = 7080;
+    private int SERVER_PORT = 7080;
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
      */
+    
     public void run() {
         try {
             log.info("Server Request Handler starting on port " + SERVER_PORT);
