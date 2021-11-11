@@ -6,8 +6,12 @@ import util.message.Message;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * the SERVER REQUEST HANDLER receive messages from the network,
@@ -19,11 +23,14 @@ import java.net.Socket;
 @Slf4j
 public class ServerRequestHandler {
     private static final int SERVER_PORT = 7080;
+    private static final int MAX_THREAD_NUMBER = Runtime.getRuntime().availableProcessors() / 2;
+
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
      */
     public void run() {
+        ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAX_THREAD_NUMBER);
         try {
             log.info("Server Request Handler starting on port " + SERVER_PORT);
             ServerSocket serverSocket = new ServerSocket(SERVER_PORT);
@@ -31,9 +38,7 @@ public class ServerRequestHandler {
                 log.info("Waiting for client requests...");
                 Socket remote = serverSocket.accept();
                 log.info("Connection made");
-
-                // As it implements Runnable, create Thread
-                new Thread(new ServerHandler(remote)).start();
+                executor.execute(new ServerHandler(remote));
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
