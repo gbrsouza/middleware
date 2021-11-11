@@ -1,6 +1,7 @@
 package core;
 
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import util.message.Message;
 
@@ -21,14 +22,17 @@ import java.util.concurrent.ThreadPoolExecutor;
  * and threads.
  */
 @Slf4j
+@NoArgsConstructor
+@AllArgsConstructor
 public class ServerRequestHandler {
-    private static final int SERVER_PORT = 7080;
-    private static final int MAX_THREAD_NUMBER = Runtime.getRuntime().availableProcessors() / 2;
 
+    private final int MAX_THREAD_NUMBER = Runtime.getRuntime().availableProcessors() / 2;
+    private int SERVER_PORT = 7080;
+  
     /**
      * Main function from Server Request Handler, wait for connections
      * and instantiates new thread for each connection
-     */
+     */    
     public void run() {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(MAX_THREAD_NUMBER);
         try {

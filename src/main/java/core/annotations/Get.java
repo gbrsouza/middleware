@@ -10,6 +10,6 @@ import java.util.Random;
 @Target(ElementType.METHOD)
 public @interface Get {
 
-    public int id() default -1;
+    public String router() default "";
 
 }
