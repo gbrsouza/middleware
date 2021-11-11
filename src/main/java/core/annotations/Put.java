@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Put {
 	
-    public int id() default -1;
+    public String router() default "";
 
 }
