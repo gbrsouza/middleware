@@ -1,10 +1,12 @@
 package core;
 
+import core.annotations.Autumn;
+
 public class Main {
     public static void main (String[] args){
-//        var number = Runtime.getRuntime().availableProcessors();
-//        System.out.println(number);
-        ServerRequestHandler server = new ServerRequestHandler();
-        server.run();
+        Calculator calc = new Calculator();
+        Autumn server = new Autumn();
+        server.addMethods(calc);
+        server.start(7080);
     }
 }

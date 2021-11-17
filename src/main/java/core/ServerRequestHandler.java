@@ -1,16 +1,24 @@
 package core;
 
+import communication.message.InternMessage;
+import communication.message.ResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpResponseFactory;
+import org.apache.http.HttpStatus;
+import org.apache.http.HttpVersion;
+import org.apache.http.impl.DefaultHttpResponseFactory;
+import org.apache.http.message.BasicStatusLine;
 import util.message.Message;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -63,14 +71,22 @@ public class ServerRequestHandler {
         public void run() {
             log.info("\n ServerHandler started for" + this.socket);
 			try {
-                var response = handleRequest(this.socket);
-                //TO-DO change this return to a JSON file
-                DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-                out.write(marshaller.marshalToSocket(response));
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                var request = marshaller.unmarshall(in);
+                var msg = handleRequest(request);
+                BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+                ResponseMessage responseMessage = new ResponseMessage("200", "OK", "{}");
+                String httpResponse = marshaller.marshall(responseMessage);
+                System.out.println(httpResponse);
+                out.write(httpResponse);
+
+                out.close();
+                in.close();
                 socket.close();
 
             } catch (Exception e1) {
 				log.error("Error to receive data from handle requester");
+                e1.printStackTrace();
 			}
 
             log.info("\n ServerHandler terminated for" + this.socket + "\n");
@@ -79,13 +95,21 @@ public class ServerRequestHandler {
 
         /**
          * Recover and executes the commands received from client
-         * @param socket the data received from client
          */
-        private Message handleRequest(Socket socket){
+        private Message handleRequest(InternMessage internMessage){
             try {
-                Message msg = marshaller.unmarshalFromSocket(socket.getInputStream());
-                var invoker = new Invoker();
-                return invoker.invokeRemoteObject(msg);
+                var invokerKey = internMessage.getMethodType().toLowerCase();
+                invokerKey = invokerKey + "-" + internMessage.getRoute();
+                Invoker inv = new Invoker();
+                ArrayList<Object> params = new ArrayList<>();
+                var keysParams = internMessage.getBody().keySet();
+                for (var k : keysParams){
+                    params.add(internMessage.getBody().get(k));
+                }
+                Message msg = new Message(true, 0, invokerKey, params);
+                inv.invokeRemoteObject(msg);
+
+                return new Message();
             } catch (Exception e) {
                 log.error("Error in recover data from received package");
                 return new Message();

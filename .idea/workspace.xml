@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="" />
+    <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/communication/message/InternMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/communication/message/ResponseMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/MessageHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/MessageHeader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/RequestBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/RequestBody.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,7 +64,7 @@
       <recent name="util.message" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Testhashmap.testHash">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Client" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="core.clientRequestHandler.Client" />
       <module name="middleware" />
@@ -112,8 +122,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.Testhashmap.testHash" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.Testhashmap.testHash" />
         <item itemvalue="Application.Client" />
         <item itemvalue="Application.ReactorManager" />
       </list>

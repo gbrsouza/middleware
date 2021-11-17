@@ -1,10 +1,12 @@
 package core;
 
-import com.google.gson.Gson;
-import com.google.gson.stream.JsonReader;
+import communication.message.InternMessage;
+import communication.message.ResponseMessage;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.json.JSONObject;
 import util.message.Message;
+
 
 import java.io.*;
 
@@ -19,26 +21,63 @@ import java.io.*;
 @NoArgsConstructor
 @Slf4j
 public class Marshaller {
-    private static final Gson gson = new Gson();
 
     /**
      * Convert a message to JSON format
      * @param message the message
      * @return a string in JSON refer to received message
      */
-    public String marshal(Message message){
-        return gson.toJson(message);
+//    public String marshal(Message message){
+//        return gson.toJson(message);
+//    }
+//
+//    /**
+//     * Convert a JSON file in a Message object
+//     * @param json the JSON file
+//     * @return A message object based on recived JSON
+//     */
+//    public Message unmarshal(String json){
+//        JsonReader reader = new JsonReader(new StringReader(json));
+//        reader.setLenient(true);
+//        return gson.fromJson(reader, Message.class);
+//    }
+
+    public String marshall(ResponseMessage message) {
+        StringBuilder httpResponse = new StringBuilder();
+        httpResponse.append("HTTP/1.1 ");
+        httpResponse.append(message.getHttpCode());
+        httpResponse.append(" ");
+        httpResponse.append(message.getHttpMessage());
+        httpResponse.append("\r\nUser-Agent: Autumn\r\nContent-Type: application/json\r\nContent-Length:");
+        httpResponse.append(message.getContent().getBytes().length);
+        httpResponse.append("\r\n\r\n");
+        httpResponse.append(message.getContent());
+        return httpResponse.toString();
     }
 
-    /**
-     * Convert a JSON file in a Message object
-     * @param json the JSON file
-     * @return A message object based on recived JSON
-     */
-    public Message unmarshal(String json){
-        JsonReader reader = new JsonReader(new StringReader(json));
-        reader.setLenient(true);
-        return gson.fromJson(reader, Message.class);
+    public InternMessage unmarshall(BufferedReader in) throws IOException {
+        String s = in.readLine(); // first line
+        String[] parts = s.split(" ");
+
+        InternMessage msg = new InternMessage();
+        msg.setMethodType(parts[0]);
+        msg.setRoute(parts[1]);
+
+        // reader header
+        while ((s = in.readLine()) != null) {
+            System.out.println(s);
+            if (s.isEmpty()) {
+                break;
+            }
+        }
+
+        // reader body
+        StringBuilder payload = new StringBuilder();
+        while(in.ready()){
+            payload.append((char) in.read());
+        }
+        msg.setBody(new JSONObject(payload.toString()));
+        return msg;
     }
 
     /**
