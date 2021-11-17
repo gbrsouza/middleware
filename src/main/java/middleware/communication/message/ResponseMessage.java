@@ -1,4 +1,4 @@
-package communication.message;
+package middleware.communication.message;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,11 +1,12 @@
-package core;
+package middleware;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 import org.json.JSONObject;
 import com.google.gson.Gson;
-import communication.message.ResponseMessage;
+
+import middleware.communication.message.ResponseMessage;
 
 public class RemoteObject {
 	

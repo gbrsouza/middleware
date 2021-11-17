@@ -1,12 +1,10 @@
-package core;
-
+package application;
 import org.json.JSONObject;
-
-import core.annotations.Delete;
-import core.annotations.Get;
-import core.annotations.Post;
-import core.annotations.Put;
-import core.annotations.RequestMap;
+import middleware.annotations.Delete;
+import middleware.annotations.Get;
+import middleware.annotations.Post;
+import middleware.annotations.Put;
+import middleware.annotations.RequestMap;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor

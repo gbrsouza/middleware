@@ -1,12 +1,13 @@
-package core;
+package middleware;
 
 import util.message.Message;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import communication.message.InternMessage;
-import communication.message.ResponseMessage;
+import middleware.communication.message.InternMessage;
+import middleware.communication.message.ResponseMessage;
+
 
 /**
  * Provide an INVOKER that accepts client invocations from REQUESTORS.
