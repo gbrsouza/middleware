@@ -1,6 +1,6 @@
-package core;
+package application;
 
-import core.annotations.Autumn;
+import middleware.Autumn;
 
 public class Main {
     public static void main (String[] args){

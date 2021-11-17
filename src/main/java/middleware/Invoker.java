@@ -1,4 +1,4 @@
-package core;
+package middleware;
 
 import util.message.Message;
 

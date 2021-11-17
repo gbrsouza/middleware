@@ -5,15 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a05abd13-ffa8-456c-b334-17e4e950e7ff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/communication/message/InternMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/communication/message/ResponseMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/MessageHeader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/MessageHeader.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/message/RequestBody.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/message/RequestBody.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/ApplicationClient.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/application/ApplicationServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/communication/message/InternMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/communication/message/InternMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/communication/message/ResponseMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/communication/message/ResponseMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/CalculatorInterface.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientProxy.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ClientRequestHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Invoker.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/Invoker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/application/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Marshaller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/Marshaller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/RemoteObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/RemoteObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/RemotingError.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/Requestor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/ServerRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/ServerRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/Autumn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/Autumn.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/annotations/Delete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/Get.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/annotations/Get.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/annotations/Post.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/Put.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/annotations/Put.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/annotations/RequestMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/middleware/annotations/RequestMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/AcceptEventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/EventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/Reactor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/ReactorManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/ReadEventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/core/pattern/reactor/WriteEventHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/extension/InvocationInterceptorMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/identification/ObjectIDMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lifecycle/LifecycleMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/test/java/Testhashmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/test/java/Testhashmap.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,11 +104,11 @@
       </method>
     </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="core.Main" />
+      <option name="MAIN_CLASS_NAME" value="application.Main" />
       <module name="middleware" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="core.*" />
+          <option name="PATTERN" value="application.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
