@@ -2,10 +2,10 @@ package core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
-
-import util.message.Message;
+import org.json.JSONObject;
+import com.google.gson.Gson;
+import communication.message.ResponseMessage;
 
 public class RemoteObject {
 	
@@ -40,7 +40,7 @@ public class RemoteObject {
 		System.out.println(methodsDelete.keySet());
 	}
 	
-	public static Message findMethod(String method, ArrayList<Object> params) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public static ResponseMessage findMethod(String method, JSONObject jsonObject) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		if(method.toLowerCase().contains("get")) {
 			
 			if(methodsGet.containsKey(method)){
@@ -48,92 +48,104 @@ public class RemoteObject {
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
-					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
-					System.out.println(obj);
-					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error (IllegalAccessException)", new ArrayList<>());
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return new Message(true, 1, "500 - Internal Server Error (IllegalArgumentException)", new ArrayList<>());
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error (InvocationTargetException)", new ArrayList<>());
-				}
+					Object obj = runMethod.invoke(instance, jsonObject);
+					
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject(jsonObj);
+					
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					
+					return message;
+				} catch (Exception e) {
+					JSONObject response = new JSONObject();
+					response.append("Error: ", "An error occurred while processing the method.");
+					return new ResponseMessage("500", "Internal Server Error", response.toString());
+				} 
 				
 			}else {
-				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
-			}
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "Method not found");
+				return new ResponseMessage("404", "Not Found", response.toString());			}
 			 
 		}else if(method.toLowerCase().contains("post") ) {
 			if(methodsPost.containsKey(method)){
 				Method runMethod = methodsPost.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
-				try {
-					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
-					System.out.println(obj);
-					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				}				
+			    try {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject(jsonObj);
+					
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					
+					return message;
+				} catch (Exception e) {
+					JSONObject response = new JSONObject();
+					response.append("Error: ", "An error occurred while processing the method.");
+					return new ResponseMessage("500", "Internal Server Error", response.toString());
+				} 
+				
 			}else {
-				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "Method not found");
+				return new ResponseMessage("404", "Not Found", response.toString());
 			}
 		}else if(method.toLowerCase().contains("put") ) {
 			if(methodsPut.containsKey(method)){
 				Method runMethod = methodsPut.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
-				try {
-					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
-				    System.out.println(obj);
-					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				}
+			    try {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject(jsonObj);
+					
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					
+					return message;
+				} catch (Exception e) {
+					JSONObject response = new JSONObject();
+					response.append("Error: ", "An error occurred while processing the method.");
+					return new ResponseMessage("500", "Internal Server Error", response.toString());
+				} 
+				
 			}else {
-				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "Method not found");
+				return new ResponseMessage("404", "Not Found", response.toString());
 			}
 		}else if(method.toLowerCase().contains("delete") ) {
 			if(methodsDelete.containsKey(method)){
 				Method runMethod = methodsDelete.get(method);
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
-				try {
-					Object obj = runMethod.invoke(instance, params.get(0), params.get(1));
-				    System.out.println(obj);
-					return new Message(true, 1, "200 - Sucess", new ArrayList<>());
-				} catch (IllegalAccessException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (IllegalArgumentException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				} catch (InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					return new Message(true, 1, "500 - Internal Server Error", new ArrayList<>());
-				}
+			    try {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject(jsonObj);
+					
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					
+					return message;
+				} catch (Exception e) {
+					JSONObject response = new JSONObject();
+					response.append("Error: ", "An error occurred while processing the method.");
+					return new ResponseMessage("500", "Internal Server Error", response.toString());
+				} 
+				
 			}else {
-				return new Message(true, 1, "404 - Not Found", new ArrayList<>());
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "Method not found");
+				return new ResponseMessage("404", "Not Found", response.toString());
 			}
 		}
-		return new Message(true, 1, "405 - Method Not Allowed", new ArrayList<>());
+		
+		JSONObject response = new JSONObject();
+		response.append("Error: ", "Method not acceptable");
+		return new ResponseMessage("406", "Not Acceptable", response.toString());
 	}
 }

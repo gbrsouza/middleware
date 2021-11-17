@@ -1,5 +1,7 @@
 package core;
 
+import org.json.JSONObject;
+
 import core.annotations.Delete;
 import core.annotations.Get;
 import core.annotations.Post;
@@ -13,22 +15,34 @@ public class Calculator {
 	
 	
 	@Get(router = "/add")
-    public float add(float a, float b) throws Throwable {
+    public float add(JSONObject jsonObject) throws Throwable {
+		float a = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var1");
+		
         return a+b;
     }
 
 	@Post(router = "/sub")
-    public float sub(float a, float b) throws Throwable {
+    public float sub(JSONObject jsonObject) throws Throwable {
+		float a = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var1");
+		
         return a-b;
     }
 	
 	@Put(router = "/mul")
-    public float mul(float a, float b) throws Throwable {
+    public float mul(JSONObject jsonObject) throws Throwable {
+		float a = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var1");
+		
         return a*b;
     }
 
 	@Delete(router = "/div")
-    public float div(float a, float b) throws Throwable {
+    public float div(JSONObject jsonObject) throws Throwable {
+		float a = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var1");
+		
         return a/b;
     }
 }

@@ -20,24 +20,24 @@ class Testhashmap {
         Autumn server = new Autumn();
         String jsonString = server.addMethods(calc);
         
+        server.start(15205);
+
         Invoker inv = new Invoker();
         ArrayList<Object> params = new ArrayList<>();
         params.add(3);
         params.add(3);
-        Message msg = new Message(true, 0, "get-/calc/add", params);
-        inv.invokeRemoteObject(msg);
-        
-        msg = new Message(true, 0, "post-/calc/sub", params);
-        inv.invokeRemoteObject(msg);
-        
-        msg = new Message(true, 0, "put-/calc/mul", params);
-        inv.invokeRemoteObject(msg);
-        
-        msg = new Message(true, 0, "delete-/calc/div", params);
-        inv.invokeRemoteObject(msg);
-        
-        server.start(15205);
-        
+//        Message msg = new Message(true, 0, "get-/calc/add", params);
+//        inv.invokeRemoteObject(msg);
+//        
+//        msg = new Message(true, 0, "post-/calc/sub", params);
+//        inv.invokeRemoteObject(msg);
+//        
+//        msg = new Message(true, 0, "put-/calc/mul", params);
+//        inv.invokeRemoteObject(msg);
+//        
+//        msg = new Message(true, 0, "delete-/calc/div", params);
+//        inv.invokeRemoteObject(msg);
+                
         assertEquals("sucess add methods", jsonString);
     }
 

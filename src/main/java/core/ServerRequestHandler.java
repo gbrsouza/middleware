@@ -11,6 +11,8 @@ import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.impl.DefaultHttpResponseFactory;
 import org.apache.http.message.BasicStatusLine;
+import org.json.JSONObject;
+
 import util.message.Message;
 
 import java.io.*;
@@ -96,24 +98,16 @@ public class ServerRequestHandler {
         /**
          * Recover and executes the commands received from client
          */
-        private Message handleRequest(InternMessage internMessage){
+        private ResponseMessage handleRequest(InternMessage internMessage){
             try {
-                var invokerKey = internMessage.getMethodType().toLowerCase();
-                invokerKey = invokerKey + "-" + internMessage.getRoute();
-                Invoker inv = new Invoker();
-                ArrayList<Object> params = new ArrayList<>();
-                var keysParams = internMessage.getBody().keySet();
-                for (var k : keysParams){
-                    params.add(internMessage.getBody().get(k));
-                }
-                Message msg = new Message(true, 0, invokerKey, params);
-                inv.invokeRemoteObject(msg);
-
-                return new Message();
+            	Invoker inv = new Invoker();
+                ResponseMessage msg = inv.invokeRemoteObject(internMessage);
+                return msg;
             } catch (Exception e) {
                 log.error("Error in recover data from received package");
-                return new Message();
-            }
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "There was an error receiving the package.");
+				return new ResponseMessage("500", "Internal Server Error", response.toString());            }
         }
 
     }

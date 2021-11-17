@@ -1,8 +1,10 @@
 package core;
 
+import org.json.JSONObject;
+
 public interface CalculatorInterface {
-    float add(float a, float b) throws Throwable;
-    float sub(float a, float b) throws Throwable;
-    float mul(float a, float b) throws Throwable;
-    float div(float a, float b) throws Throwable;
+    float add(JSONObject jsonObject) throws Throwable;
+    float sub(JSONObject jsonObject) throws Throwable;
+    float mul(JSONObject jsonObject) throws Throwable;
+    float div(JSONObject jsonObject) throws Throwable;
 }
