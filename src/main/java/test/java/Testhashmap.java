@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
 
-import core.Calculator;
-import core.Invoker;
-import core.annotations.Autumn;
+import application.Calculator;
+import middleware.Invoker;
+import middleware.Autumn;
 import util.message.Message;
 
 class Testhashmap {
