@@ -51,18 +51,9 @@ public class RemoteObject {
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject(jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					JSONObject obj = (JSONObject) runMethod.invoke(instance, jsonObject);
+					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
-				}catch (JSONException e) {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject();
-					response.put("response", jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					return message;					
 				}catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
@@ -80,19 +71,10 @@ public class RemoteObject {
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject(jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					JSONObject obj = (JSONObject) runMethod.invoke(instance, jsonObject);
+					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
-			    } catch (JSONException e) {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject();
-					response.put("response", jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					return message;					
-				} catch (Exception e) {
+			    }  catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -109,19 +91,10 @@ public class RemoteObject {
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject(jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					JSONObject obj = (JSONObject) runMethod.invoke(instance, jsonObject);
+					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
-			    } catch (JSONException e) {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject();
-					response.put("response", jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					return message;					
-				} catch (Exception e) {
+			    } catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -138,19 +111,10 @@ public class RemoteObject {
 			    Class<?> clazz = runMethod.getDeclaringClass();
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject(jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					JSONObject obj = (JSONObject) runMethod.invoke(instance, jsonObject);
+					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
-				} catch (JSONException e) {
-					Object obj = runMethod.invoke(instance, jsonObject);
-					String jsonObj = new Gson().toJson(obj);
-					JSONObject response = new JSONObject();
-					response.put("response", jsonObj);
-					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					return message;					
-				}  catch (Exception e) {
+				} catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
