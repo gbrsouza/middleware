@@ -3,6 +3,8 @@ package middleware;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
@@ -50,14 +52,18 @@ public class RemoteObject {
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 				try {
 					Object obj = runMethod.invoke(instance, jsonObject);
-					
 					String jsonObj = new Gson().toJson(obj);
 					JSONObject response = new JSONObject(jsonObj);
-					
 					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					
 					return message;
-				} catch (Exception e) {
+				}catch (JSONException e) {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject();
+					response.put("response", jsonObj);
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					return message;					
+				}catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -75,13 +81,17 @@ public class RemoteObject {
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
 					Object obj = runMethod.invoke(instance, jsonObject);
-					
 					String jsonObj = new Gson().toJson(obj);
 					JSONObject response = new JSONObject(jsonObj);
-					
 					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					
 					return message;
+			    } catch (JSONException e) {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject();
+					response.put("response", jsonObj);
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					return message;					
 				} catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
@@ -100,13 +110,17 @@ public class RemoteObject {
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
 					Object obj = runMethod.invoke(instance, jsonObject);
-					
 					String jsonObj = new Gson().toJson(obj);
 					JSONObject response = new JSONObject(jsonObj);
-					
 					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					
 					return message;
+			    } catch (JSONException e) {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject();
+					response.put("response", jsonObj);
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					return message;					
 				} catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
@@ -125,14 +139,18 @@ public class RemoteObject {
 			    Object instance = clazz.getDeclaredConstructor().newInstance();
 			    try {
 					Object obj = runMethod.invoke(instance, jsonObject);
-					
 					String jsonObj = new Gson().toJson(obj);
 					JSONObject response = new JSONObject(jsonObj);
-					
 					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
-					
 					return message;
-				} catch (Exception e) {
+				} catch (JSONException e) {
+					Object obj = runMethod.invoke(instance, jsonObject);
+					String jsonObj = new Gson().toJson(obj);
+					JSONObject response = new JSONObject();
+					response.put("response", jsonObj);
+					ResponseMessage message = new ResponseMessage("200", "OK", response.toString());
+					return message;					
+				}  catch (Exception e) {
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());

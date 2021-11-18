@@ -11,19 +11,25 @@ import lombok.NoArgsConstructor;
 @RequestMap(router = "/calc")
 public class Calculator {
 	
+	private float result;
+	
 	
 	@Get(router = "/add")
-    public float add(JSONObject jsonObject) throws Throwable {
+    public Calculator add(JSONObject jsonObject) throws Throwable {
 		float a = jsonObject.getFloat("var1");
-		float b = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var2");
 		
-        return a+b;
+		Calculator calc = new Calculator();
+		
+		calc.setResult(a+b);
+		
+        return calc;
     }
 
 	@Post(router = "/sub")
     public float sub(JSONObject jsonObject) throws Throwable {
 		float a = jsonObject.getFloat("var1");
-		float b = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var2");
 		
         return a-b;
     }
@@ -31,7 +37,7 @@ public class Calculator {
 	@Put(router = "/mul")
     public float mul(JSONObject jsonObject) throws Throwable {
 		float a = jsonObject.getFloat("var1");
-		float b = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var2");
 		
         return a*b;
     }
@@ -39,8 +45,16 @@ public class Calculator {
 	@Delete(router = "/div")
     public float div(JSONObject jsonObject) throws Throwable {
 		float a = jsonObject.getFloat("var1");
-		float b = jsonObject.getFloat("var1");
+		float b = jsonObject.getFloat("var2");
 		
         return a/b;
     }
+
+	public float getResult() {
+		return result;
+	}
+
+	public void setResult(float result) {
+		this.result = result;
+	}
 }

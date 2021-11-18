@@ -65,11 +65,9 @@ public class ServerRequestHandler {
                 var request = marshaller.unmarshall(in);
                 var msg = handleRequest(request);
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                ResponseMessage responseMessage = new ResponseMessage("200", "OK", "{}");
-                String httpResponse = marshaller.marshall(responseMessage);
+                String httpResponse = marshaller.marshall(msg);
                 System.out.println(httpResponse);
                 out.write(httpResponse);
-
                 out.close();
                 in.close();
                 socket.close();

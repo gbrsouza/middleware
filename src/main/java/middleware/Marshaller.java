@@ -49,6 +49,14 @@ public class Marshaller {
      */
     public InternMessage unmarshall(BufferedReader in) throws IOException {
         String s = in.readLine(); // first line
+        if(s == null) {
+	        while(s == null) {
+	        	s = in.readLine();
+	        	if(s != null) {
+	        		break;
+	        	}
+	        }
+        }
         String[] parts = s.split(" ");
 
         InternMessage msg = new InternMessage();
