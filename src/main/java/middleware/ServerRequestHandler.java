@@ -5,12 +5,10 @@ import middleware.communication.message.ResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import util.message.Message;
-
+import org.json.JSONObject;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -67,11 +65,9 @@ public class ServerRequestHandler {
                 var request = marshaller.unmarshall(in);
                 var msg = handleRequest(request);
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-                ResponseMessage responseMessage = new ResponseMessage("200", "OK", "{}");
-                String httpResponse = marshaller.marshall(responseMessage);
+                String httpResponse = marshaller.marshall(msg);
                 System.out.println(httpResponse);
                 out.write(httpResponse);
-
                 out.close();
                 in.close();
                 socket.close();
@@ -88,24 +84,16 @@ public class ServerRequestHandler {
         /**
          * Recover and executes the commands received from client
          */
-        private Message handleRequest(InternMessage internMessage){
+        private ResponseMessage handleRequest(InternMessage internMessage){
             try {
-                var invokerKey = internMessage.getMethodType().toLowerCase();
-                invokerKey = invokerKey + "-" + internMessage.getRoute();
-                Invoker inv = new Invoker();
-                ArrayList<Object> params = new ArrayList<>();
-                var keysParams = internMessage.getBody().keySet();
-                for (var k : keysParams){
-                    params.add(internMessage.getBody().get(k));
-                }
-                Message msg = new Message(true, 0, invokerKey, params);
-                inv.invokeRemoteObject(msg);
-
-                return new Message();
+            	Invoker inv = new Invoker();
+                ResponseMessage msg = inv.invokeRemoteObject(internMessage);
+                return msg;
             } catch (Exception e) {
                 log.error("Error in recover data from received package");
-                return new Message();
-            }
+				JSONObject response = new JSONObject();
+				response.append("Error: ", "There was an error receiving the package.");
+				return new ResponseMessage("500", "Internal Server Error", response.toString());            }
         }
 
     }

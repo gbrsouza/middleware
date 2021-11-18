@@ -23,16 +23,16 @@ public class Autumn {
         for (Method method : clazz.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Get.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodGet("get-" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Get.class).router(), method);
+                RemoteObject.addMethodGet("get" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Get.class).router(), method);
             }else if (method.isAnnotationPresent(Post.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodPost("post-" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Post.class).router(), method);            	
+                RemoteObject.addMethodPost("post" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Post.class).router(), method);            	
             }else if (method.isAnnotationPresent(Put.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodPut("put-" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Put.class).router(), method);           	
+                RemoteObject.addMethodPut("put" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Put.class).router(), method);           	
             }else if (method.isAnnotationPresent(Delete.class)) {
                 method.setAccessible(true);
-                RemoteObject.addMethodDelete("delete-" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Delete.class).router(), method);            }            
+                RemoteObject.addMethodDelete("delete" + clazz.getAnnotation(RequestMap.class).router() + method.getAnnotation(Delete.class).router(), method);            }            
         }
         return "sucess add methods";
     }

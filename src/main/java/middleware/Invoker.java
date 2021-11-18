@@ -5,6 +5,10 @@ import util.message.Message;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+import middleware.communication.message.InternMessage;
+import middleware.communication.message.ResponseMessage;
+
+
 /**
  * Provide an INVOKER that accepts client invocations from REQUESTORS.
  * REQUESTORS send requests across the network, containing the ID of
@@ -18,18 +22,13 @@ import java.util.ArrayList;
  */
 public class Invoker {
 
-        public Message invokeRemoteObject (Message msg) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-            if (msg.getHeader().getMessageType() == 0){
+        public ResponseMessage invokeRemoteObject (InternMessage msg) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
             	
-            	Message respMsg = RemoteObject.findMethod(msg.getBody().getRequestHeader().getOperation(),
-            			msg.getBody().getRequestBody().getParameters());
-            	
-            	System.out.println(respMsg.getBody().getRequestHeader().getOperation());
-            	
-            	return respMsg;
-                        	
-            }else {
-                return new Message(true, 1, "error", new ArrayList<>());
-            }
+            var invokerKey = msg.getMethodType().toLowerCase();
+            invokerKey = invokerKey + msg.getRoute();
+            
+    		ResponseMessage respMsg = RemoteObject.findMethod(invokerKey, msg.getBody());
+            	        	
+        	return respMsg;
         }
 }

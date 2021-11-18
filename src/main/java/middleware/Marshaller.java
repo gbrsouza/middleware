@@ -48,7 +48,17 @@ public class Marshaller {
      * @throws IOException return an exception if an error occurs at read the socket
      */
     public InternMessage unmarshall(BufferedReader in) throws IOException {
+    	Integer count = 0;
         String s = in.readLine(); // first line
+        if(s == null) {
+	        while(s == null) {
+	        	count++;
+	        	s = in.readLine();
+	        	if(s != null || count > 5) {
+	        		break;
+	        	}
+	        }
+        }
         String[] parts = s.split(" ");
 
         InternMessage msg = new InternMessage();
