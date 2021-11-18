@@ -59,7 +59,6 @@ public class Marshaller {
 	        	}
 	        }
         }
-        System.out.println("1-" + s);
         String[] parts = s.split(" ");
 
         InternMessage msg = new InternMessage();
