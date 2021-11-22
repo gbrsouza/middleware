@@ -8,4 +8,5 @@ public class InternMessage {
     private String route;
     private String methodType;
     private JSONObject body;
+    private MessageType type;
 }

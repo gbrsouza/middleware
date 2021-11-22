@@ -1,6 +1,7 @@
 package middleware;
 
 import middleware.communication.message.InternMessage;
+import middleware.communication.message.MessageType;
 import middleware.communication.message.ResponseMessage;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -39,7 +40,7 @@ public class ServerRequestHandler {
             while (true){
                 log.info("Waiting for client requests...");
                 Socket remote = serverSocket.accept();
-                log.info("Connection made");
+                log.info("Connection done");
                 executor.execute(new ServerHandler(remote));
             }
         } catch (IOException e) {
@@ -62,12 +63,25 @@ public class ServerRequestHandler {
             log.info("\n ServerHandler started for" + this.socket);
 			try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                var request = marshaller.unmarshall(in);
-                var msg = handleRequest(request);
                 BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+
+                var request = marshaller.unmarshall(in);
+                ResponseMessage msg = new ResponseMessage();
+
+                if (request.getType().equals(MessageType.ERROR)){
+                    log.warn("Server handler could not interpret request");
+                    msg.setHttpCode("400");
+                    msg.setHttpMessage("Bad Request");
+                    msg.setContent(request.getBody().toString());
+                }else {
+                    msg = handleRequest(request);
+                }
+
+                // response client
                 String httpResponse = marshaller.marshall(msg);
-                System.out.println(httpResponse);
                 out.write(httpResponse);
+
+                // close connection
                 out.close();
                 in.close();
                 socket.close();
@@ -87,8 +101,7 @@ public class ServerRequestHandler {
         private ResponseMessage handleRequest(InternMessage internMessage){
             try {
             	Invoker inv = new Invoker();
-                ResponseMessage msg = inv.invokeRemoteObject(internMessage);
-                return msg;
+                return inv.invokeRemoteObject(internMessage);
             } catch (Exception e) {
                 log.error("Error in recover data from received package");
 				JSONObject response = new JSONObject();

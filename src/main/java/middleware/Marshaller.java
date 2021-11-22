@@ -1,6 +1,7 @@
 package middleware;
 
 import middleware.communication.message.InternMessage;
+import middleware.communication.message.MessageType;
 import middleware.communication.message.ResponseMessage;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -48,36 +49,34 @@ public class Marshaller {
      * @throws IOException return an exception if an error occurs at read the socket
      */
     public InternMessage unmarshall(BufferedReader in) throws IOException {
-    	Integer count = 0;
-        String s = in.readLine(); // first line
-        if(s == null) {
-	        while(s == null) {
-	        	count++;
-	        	s = in.readLine();
-	        	if(s != null || count > 5) {
-	        		break;
-	        	}
-	        }
-        }
-        String[] parts = s.split(" ");
-
         InternMessage msg = new InternMessage();
+        String s = in.readLine(); // first line
+        if (!s.contains("HTTP")){
+            log.warn("Problems to read HTTP request");
+            msg.setType(MessageType.ERROR);
+            return msg;
+        }
+
+        String[] parts = s.split(" ");
         msg.setMethodType(parts[0]);
         msg.setRoute(parts[1]);
 
-        // reader header
+        // read header
         while ((s = in.readLine()) != null) {
             if (s.isEmpty()) {
                 break;
             }
         }
 
-        // reader body
+        // read body
         StringBuilder payload = new StringBuilder();
         while(in.ready()){
             payload.append((char) in.read());
         }
+
+        // setting message attributes
         msg.setBody(new JSONObject(payload.toString()));
+        msg.setType(MessageType.REQUEST);
         return msg;
     }
 

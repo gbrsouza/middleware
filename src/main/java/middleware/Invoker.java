@@ -1,9 +1,6 @@
 package middleware;
 
-import util.message.Message;
-
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 import middleware.communication.message.InternMessage;
 import middleware.communication.message.ResponseMessage;
