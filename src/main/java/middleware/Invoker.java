@@ -18,12 +18,13 @@ import middleware.communication.message.ResponseMessage;
  * the remote invocation, and invokes it.
  */
 public class Invoker {
-
+		// Method that invokes a remote object, receiving an InternMessage and returning a ResponseMessage
         public ResponseMessage invokeRemoteObject (InternMessage msg) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-            	
+            // Separates the method type and concatenates with the path to form the hashmap key	
             var invokerKey = msg.getMethodType().toLowerCase();
             invokerKey = invokerKey + msg.getRoute();
             
+            // Calls the invoke method passing the JSON key and parameters.
     		ResponseMessage respMsg = RemoteObject.findMethod(invokerKey, msg.getBody());
             	        	
         	return respMsg;

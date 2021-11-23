@@ -6,6 +6,17 @@ uses a Thread-per-connection strategy to accept requests. Each request generates
 
 - Java `>=` 11
 
+## Architecture
+
+Autumn contains four main patterns that is responsible to receive requests,
+manager threads and call the correct resources. The patterns are Server
+Request Handler, Invoker, Marshaller and Remote Object. For more details
+about these patters, please see **VOLTER, Markus; KIRCHER, Michael; ZDUN,
+Uwe. Remoting patterns. John Wiley & Sons, 2005**. The flux among these
+patterns can be seen in the figure below:
+
+![Autumn Flux Diagram](img/AutumnSequence.svg)
+
 ## How to use Autumn
 It is possible to implement a new system inside the Autumn repository. For this,
 you need to create a new package in `src.main.java.application` and
