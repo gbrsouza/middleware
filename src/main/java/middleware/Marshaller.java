@@ -49,14 +49,17 @@ public class Marshaller {
      * @throws IOException return an exception if an error occurs at read the socket
      */
     public InternMessage unmarshall(BufferedReader in) throws IOException {
+    	// Instance to internal message
         InternMessage msg = new InternMessage();
-        String s = in.readLine(); // first line
+        // Read first line
+        String s = in.readLine();
+        // Checks if there is HTTP in the first line
         if (!s.contains("HTTP")){
             log.warn("Problems to read HTTP request");
             msg.setType(MessageType.ERROR);
             return msg;
         }
-
+        //If there is, the header is separated.
         String[] parts = s.split(" ");
         msg.setMethodType(parts[0]);
         msg.setRoute(parts[1]);
