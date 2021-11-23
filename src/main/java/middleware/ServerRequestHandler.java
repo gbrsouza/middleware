@@ -45,6 +45,7 @@ public class ServerRequestHandler {
             }
         } catch (IOException e) {
             log.error("[ERROR] problems to start the Server Request Handler");
+            log.error(e.getMessage());
         }
     }
 

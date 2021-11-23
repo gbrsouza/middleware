@@ -4,12 +4,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONException;
 import org.json.JSONObject;
 import com.google.gson.Gson;
 
 import middleware.communication.message.ResponseMessage;
 
+@Slf4j
 public class RemoteObject {
 	
 	private static ConcurrentHashMap<Object, Method> methodsGet = new ConcurrentHashMap<>();
@@ -55,6 +57,7 @@ public class RemoteObject {
 					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
 				}catch (Exception e) {
+					log.error(e.getMessage());
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -75,6 +78,7 @@ public class RemoteObject {
 					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
 			    }  catch (Exception e) {
+					log.error(e.getMessage());
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -95,6 +99,7 @@ public class RemoteObject {
 					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
 			    } catch (Exception e) {
+					log.error(e.getMessage());
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
@@ -115,6 +120,7 @@ public class RemoteObject {
 					ResponseMessage message = new ResponseMessage("200", "OK", obj.toString());
 					return message;
 				} catch (Exception e) {
+					log.error(e.getMessage());
 					JSONObject response = new JSONObject();
 					response.append("Error: ", "An error occurred while processing the method.");
 					return new ResponseMessage("500", "Internal Server Error", response.toString());
